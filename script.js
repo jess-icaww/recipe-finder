@@ -8,16 +8,17 @@ async function getRandomRecipe() {
 
     const recipe = data.recipes[0];
     const id = recipe.id;
+    console.log(id);
     const container = document.getElementById(`recipe-container`);
     container.innerHTML = `<h1>${recipe.title}</h1>
         <img src=${recipe.image}>
         <button class="full-recipe-btn">Get Full Recipe</button>
         <button class="random-recipe-btn">Get Another Recipe</button>`;
-    const randomRecipeBtn = document.getElementById(`random-recipe-btn`);
+    const randomRecipeBtn = document.querySelector(`.random-recipe-btn`);
     randomRecipeBtn.addEventListener("click", () => {
       getRandomRecipe();
     });
-    const getFullRecipeBtn = document.getElementById(`full-recipe-btn`);
+    const getFullRecipeBtn = document.querySelector(`.full-recipe-btn`);
     getFullRecipeBtn.addEventListener("click", () => {
         getFullRecipe(id);
     })
@@ -40,16 +41,58 @@ async function getFullRecipe(id) {
       container.innerHTML = `
       <h1>${data.title}</h1>
       <img src=${data.image}>
+      <button class="save-favorite-btn" data-id="${data.id}">
+      Save to Favorites</button>
       <h3>Category: ${data.dishTypes[0].charAt(0).toUpperCase() + data.dishTypes[0].slice(1)}</h3>
       <h3>Servings: ${data.servings}</h3>
       <h3>Cook Time: ${data.readyInMinutes}</h3>
       <h3>Ingredients:</h3><ul>${ingredientsList}</ul>
       <h3>Instructions: </h3><p>${data.instructions}</p>
       <div id="source-wrapper"><a href="${data.sourceUrl}" target="_blank">View Original Source</div>`;
+
+      const saveFavoriteBtn = document.querySelector(`.save-favorite-btn`);
+      saveFavoriteBtn.addEventListener("click", () => {
+        saveFavorite(data.id, data.title, data.image);
+      })
     } catch (error) {
       console.error(`Could not find recipe. Try again.`);
     }
   }
+
+function saveFavorite(id, title, image) {
+  // Get existing favorites from local storage
+  let favorites = localStorage.getItem("favorites");
+  console.log("Raw from localstorage:", favorites);
+  console.log("Type:", typeof favorites);
+
+  // If no existing favorites, create array
+  if (favorites === null) {
+    favorites = [];
+  } else {
+    favorites = JSON.parse(favorites);
+  }
+
+  console.log("After parsing:", favorites);
+  console.log("Is array?", Array.isArray(favorites));
+
+  // Check for duplicates
+  let alreadySaved = favorites.find(recipe => recipe.id === id);
+  if (alreadySaved) {
+    console.log("Recipe already saved!");
+    return;
+  }
+
+  favorites.push({
+    id: id,
+    title: title,
+    image: image
+  });
+
+  // Save to local storage
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  console.log("Recipe saved to favorites.");
+  console.log(favorites);
+}
 
 async function searchRecipes() {
     try {
