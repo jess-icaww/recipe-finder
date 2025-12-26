@@ -62,8 +62,6 @@ async function getFullRecipe(id) {
 function saveFavorite(id, title, image) {
   // Get existing favorites from local storage
   let favorites = localStorage.getItem("favorites");
-  console.log("Raw from localstorage:", favorites);
-  console.log("Type:", typeof favorites);
 
   // If no existing favorites, create array
   if (favorites === null) {
@@ -71,9 +69,6 @@ function saveFavorite(id, title, image) {
   } else {
     favorites = JSON.parse(favorites);
   }
-
-  console.log("After parsing:", favorites);
-  console.log("Is array?", Array.isArray(favorites));
 
   // Check for duplicates
   let alreadySaved = favorites.find(recipe => recipe.id === id);
@@ -99,6 +94,8 @@ async function searchRecipes() {
       const searchInput = document.getElementById(`search-input`).value.trim();
       const container = document.getElementById(`recipe-container`);
       const errorMessage = document.getElementById(`error-message`);
+      const dietFilter = document.getElementById(`diet-filter`).value;
+      const mealTypeFilter = document.getElementById(`meal-type-filter`).value;
 
       // Check if input is empty
       if (searchInput === "" || searchInput.length === 0) {
@@ -107,7 +104,19 @@ async function searchRecipes() {
       }
       console.log(searchInput);
 
-      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&apiKey=${API_KEY}`);
+      errorMessage.innerHTML = ``;
+
+      let url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&apiKey=${API_KEY}`;
+
+      if(dietFilter) {
+        url += `&diet=${dietFilter}`;
+      }
+
+      if (mealTypeFilter) {
+        url += `&type=${mealTypeFilter}`;
+      }
+
+      const response = await fetch(url);
       const data = await response.json();
 
       // Map through recipes and create HTML with data-id attribute
@@ -143,3 +152,8 @@ const randomRecipeBtn = document.getElementById(`random-recipe-btn`);
 randomRecipeBtn.addEventListener("click", () => {
   getRandomRecipe();
 });
+
+// Navigation handlers
+document.getElementById(`random-recipe-link`).addEventListener("click", () => {
+  getRandomRecipe();
+})
