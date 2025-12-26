@@ -1,7 +1,16 @@
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    height: 100vh;
+    width: 100%;
+    background-color: #EDEADE;
+}
+
+/* Navbar */
 #navbar {
     background-color: #333;
     color: white;
@@ -77,4 +86,74 @@
   
   .dropdown-menu a:hover {
     background-color: #555;
+  }
+
+  /* Container */
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .box {
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .box #search-box {
+    position: relative;
+    height: 50px;
+    max-width: 380px;
+    margin: auto;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+  }
+
+  #search-box input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    background: #fff;
+    outline: none;
+    border: none;
+    padding-left: 20px;
+    font-size: 18px;
+  }
+
+  #search-box .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    background-color: #EDEADE;
+    height: 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    color: #757267;
+    border-radius: 0 25px 25px 0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    
+  }
+
+  #search-box .icon:hover {
+    background-color: #d6d3c9;
+    color: #333;
+  }
+  
+
+  #recipe-container {
+    display: flex;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-top: 15px;
   }

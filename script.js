@@ -92,19 +92,19 @@ function saveFavorite(id, title, image) {
 async function searchRecipes() {
     try {
       const searchInput = document.getElementById(`search-input`).value.trim();
-      const container = document.getElementById(`recipe-container`);
-      const errorMessage = document.getElementById(`error-message`);
+      const resultsGrid = document.getElementById(`results-grid`);
+      const recipeContainer = document.getElementById(`recipe-container`);
       const dietFilter = document.getElementById(`diet-filter`).value;
       const mealTypeFilter = document.getElementById(`meal-type-filter`).value;
 
       // Check if input is empty
       if (searchInput === "" || searchInput.length === 0) {
-        errorMessage.innerHTML = `<p class="error-message">Please enter valid recipe name.</p>`;
         return;
       }
+      
       console.log(searchInput);
 
-      errorMessage.innerHTML = ``;
+      recipeContainer.innerHTML = ``;
 
       let url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&apiKey=${API_KEY}`;
 
@@ -127,7 +127,7 @@ async function searchRecipes() {
         <button class="full-recipe-btn" data-id="${recipe.id}">Get Full Recipe</button>
         </div>`).join(" ");
         
-      container.innerHTML = `${recipes}`;
+      resultsGrid.innerHTML = `${recipes}`;
 
       // Add event listeners to ALL buttons
       const buttons = document.querySelectorAll(`.full-recipe-btn`);
