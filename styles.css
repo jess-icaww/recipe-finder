@@ -94,7 +94,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 30px;
+    gap: 15px;
   }
 
   .box {
@@ -116,13 +117,18 @@ body {
     height: 100%;
     width: 100%;
     border-radius: 25px;
-    background: #fff;
+    background: #ffffffa8;
     outline: none;
     border: none;
     padding-left: 20px;
     font-size: 18px;
   }
 
+  #search-box:focus-within {
+    box-shadow:
+      0 0 0 2px #1e90ff;
+  }
+  
   #search-box .icon {
     position: absolute;
     right: 0;
