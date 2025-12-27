@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe Finder</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  </head>
 
-  <body>
-    <!-- Navigation Bar -->
-    <nav id="navbar">
-      <div class="nav-container">
-        <h2 class="logo">Recipe Finder</h2>
-        <ul class="nav-links">
-          <li><a href="#" id="home-link">Home</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle">Recipes ▼</a>
-            <ul class="dropdown-menu">
-              <li><a href="#" id="random-recipe-link">Get Random Recipe</a></li>
-              <li><a href="#" id="all-recipes-link">All Recipes</a></li>
-            </ul>
-          </li>
-          <li><a href="#" id="favorites-link">Favorites</a></li>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Finder</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet" />
+
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <h2 class="logo">Recipe Finder</h2>
+      <ul class="nav-links">
+        <li><a href="#" id="home-link">Home</a></li>
+        <li><a href="./favorites.html" id="favorites-link">Favorites</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Start your recipe search!</h1>
+
+    <div class="box">
+      <div id="search-box">
+        <input type="text" id="search-input" placeholder="Search for recipes..." required />
+        <button id="search-btn" class="icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </div>
-    </nav>
-    <div class="container">
-      <h1>Start your recipe search!</h1>
+    </div>
 
-      <div class="box">
-        <div id="search-box">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Search for recipes..."
-            required
-          />
-          <button id="search-btn" class="icon">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="dropdown-items">
-
+    <div class="dropdown-items">
       <select id="diet-filter" class="dropdown">
         <option value="" disabled selected hidden>Filter by diet</option>
         <option value="all">All Diets</option>
@@ -69,10 +58,11 @@
         <option value="Dessert">Dessert</option>
       </select>
     </div>
-      <div id="recipe-container"></div>
-      <div class="results-grid" id="results-grid"></div>
-    </div>
-    <script src="config.js"></script>
-    <script src="script.js"></script>
-  </body>
+    <div id="recipe-container"></div>
+    <div class="results-grid" id="results-grid"></div>
+  </div>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
