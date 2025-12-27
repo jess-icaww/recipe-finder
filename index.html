@@ -6,10 +6,11 @@
     <title>Recipe Finder</title>
     <link rel="stylesheet" href="./styles.css" />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
-  
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   </head>
 
   <body>
@@ -41,31 +42,36 @@
             placeholder="Search for recipes..."
             required
           />
-          <button id="search-btn" class="icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button id="search-btn" class="icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
       </div>
+
+      <div class="dropdown-items">
+
+      <select id="diet-filter" class="dropdown">
+        <option value="" disabled selected hidden>Filter by diet</option>
+        <option value="all">All Diets</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="vegan">Vegan</option>
+        <option value="gluten free">Gluten Free</option>
+        <option value="ketogenic">Keto</option>
+        <option value="paleo">Paleo</option>
+      </select>
+
+      <select id="meal-type-filter" class="dropdown">
+        <option value="" disabled selected hidden>Filter by meal type</option>
+        <option value="all">All Meal Types</option>
+        <option value="main course">Main Course</option>
+        <option value="appetizer">Appetizer</option>
+        <option value="side dish">Side Dish</option>
+        <option value="Dessert">Dessert</option>
+      </select>
     </div>
-
-    <select id="diet-filter">
-      <option value="" disabled selected hidden>Filter by diet</option>
-      <option value="all">All Diets</option>
-      <option value="vegetarian">Vegetarian</option>
-      <option value="vegan">Vegan</option>
-      <option value="gluten free">Gluten Free</option>
-      <option value="ketogenic">Keto</option>
-      <option value="paleo">Paleo</option>
-    </select>
-
-    <select id="meal-type-filter">
-      <option value="" disabled selected hidden>Filter by meal type</option>
-      <option value="all">All Meal Types</option>
-      <option value="main course">Main Course</option>
-      <option value="appetizer">Appetizer</option>
-      <option value="side dish">Side Dish</option>
-      <option value="Dessert">Dessert</option>
-    </select>
-    <div id="recipe-container"></div>
-    <div class="results-grid" id="results-grid"></div>
+      <div id="recipe-container"></div>
+      <div class="results-grid" id="results-grid"></div>
+    </div>
     <script src="config.js"></script>
     <script src="script.js"></script>
   </body>

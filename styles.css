@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 
 body {
@@ -151,10 +152,10 @@ body {
     background-color: #d6d3c9;
     color: #333;
   }
-  
 
-  #recipe-container {
-    display: flex;
+  .dropdown {
+    border-radius: 5px;
+    padding: 5px;
   }
 
   .results-grid {
