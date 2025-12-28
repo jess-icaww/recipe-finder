@@ -21,7 +21,7 @@
     <div class="nav-container">
       <h2 class="logo">Recipe Finder</h2>
       <ul class="nav-links">
-        <li><a href="#" id="home-link">Home</a></li>
+        <li><a href="./index.html" id="home-link">Home</a></li>
         <li><a href="./favorites.html" id="favorites-link">Favorites</a></li>
       </ul>
     </div>
@@ -38,28 +38,32 @@
       </div>
     </div>
 
-    <div class="dropdown-items">
-      <select id="diet-filter" class="dropdown">
-        <option value="" disabled selected hidden>Filter by diet</option>
-        <option value="all">All Diets</option>
-        <option value="vegetarian">Vegetarian</option>
-        <option value="vegan">Vegan</option>
-        <option value="gluten free">Gluten Free</option>
-        <option value="ketogenic">Keto</option>
-        <option value="paleo">Paleo</option>
-      </select>
 
-      <select id="meal-type-filter" class="dropdown">
-        <option value="" disabled selected hidden>Filter by meal type</option>
-        <option value="all">All Meal Types</option>
-        <option value="main course">Main Course</option>
-        <option value="appetizer">Appetizer</option>
-        <option value="side dish">Side Dish</option>
-        <option value="Dessert">Dessert</option>
-      </select>
+    <div id="recipe-container">
+      <div class="dropdown-items">
+        <select id="diet-filter" class="dropdown">
+          <option value="" disabled selected hidden>Filter by diet</option>
+          <option value="all">All Diets</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="gluten free">Gluten Free</option>
+          <option value="ketogenic">Keto</option>
+          <option value="paleo">Paleo</option>
+        </select>
+  
+        <select id="meal-type-filter" class="dropdown">
+          <option value="" disabled selected hidden>Filter by meal type</option>
+          <option value="all">All Meal Types</option>
+          <option value="main course">Main Course</option>
+          <option value="appetizer">Appetizer</option>
+          <option value="side dish">Side Dish</option>
+          <option value="Dessert">Dessert</option>
+        </select>
+      </div>
+
+      <div class="results-grid" id="results-grid"></div>
     </div>
-    <div id="recipe-container"></div>
-    <div class="results-grid" id="results-grid"></div>
+
   </div>
   <script src="config.js"></script>
   <script src="script.js"></script>
