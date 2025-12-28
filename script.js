@@ -104,7 +104,7 @@ async function searchRecipes() {
           <h3>${recipe.title}</h3>
           <div class="recipe-quick-info">
           <p>Servings: ${recipe.servings}</p>
-          <p>Ready in: ${recipe.readyInMinutes} mins</p>
+          ${recipe.readyInMinutes <= 60 ? `<p>Ready in: ${recipe.readyInMinutes} mins</p>` : `<p>Ready in: ${Math.round(recipe.readyInMinutes /60)} hrs ${recipe.readyInMinutes % 60} mins</p>`}
           </div>
           <button class="full-recipe-btn" data-id="${recipe.id}">Get Full Recipe</button>
           </div>`
