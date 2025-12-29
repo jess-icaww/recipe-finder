@@ -10,22 +10,24 @@ async function getFullRecipe(id) {
       .map((ingredient) => `<li>${ingredient.original}</li>`)
       .join(" ");
 
-    const container = document.getElementById(`recipe-container`);
+    const container = document.querySelector(`.container`);
     container.innerHTML = `
+      <div class="recipe-details">
       <h1>${data.title}</h1>
       <img src=${data.image}>
-      <button class="save-favorite-btn" data-id="${data.id}">
-      Save to Favorites</button>
-      <h3>Category: ${
+      <h3>Category: </h3><p>${
         data.dishTypes[0].charAt(0).toUpperCase() + data.dishTypes[0].slice(1)
-      }</h3>
-      <h3>Servings: ${data.servings}</h3>
-      <h3>Cook Time: ${data.readyInMinutes}</h3>
-      <h3>Ingredients:</h3><ul>${ingredientsList}</ul>
+      }</p>
+      <h3>Servings: </h3><p>${data.servings}</p>
+      <h3>Cook Time: </h3><p>${data.readyInMinutes} mins</p>
+      <h3>Ingredients:</h3><ul class="ingredients-list">${ingredientsList}</ul>
       <h3>Instructions: </h3><p>${data.instructions}</p>
       <div id="source-wrapper"><a href="${
         data.sourceUrl
-      }" target="_blank">View Original Source</div>`;
+      }" target="_blank">View Original Source</div>  <div id="save-favorite-container">    <button class="save-favorite-btn btn" data-id="${
+      data.id
+    }">
+      Save to Favorites</button></div></div>`;
 
     const saveFavoriteBtn = document.querySelector(`.save-favorite-btn`);
     saveFavoriteBtn.addEventListener("click", () => {
@@ -104,9 +106,17 @@ async function searchRecipes() {
           <h3>${recipe.title}</h3>
           <div class="recipe-quick-info">
           <p>Servings: ${recipe.servings}</p>
-          ${recipe.readyInMinutes <= 60 ? `<p>Ready in: ${recipe.readyInMinutes} mins</p>` : `<p>Ready in: ${Math.round(recipe.readyInMinutes /60)} hrs ${recipe.readyInMinutes % 60} mins</p>`}
+          ${
+            recipe.readyInMinutes <= 60
+              ? `<p>Ready in: ${recipe.readyInMinutes} mins</p>`
+              : `<p>Ready in: ${Math.round(recipe.readyInMinutes / 60)} hrs ${
+                  recipe.readyInMinutes % 60
+                } mins</p>`
+          }
           </div>
-          <button class="full-recipe-btn" data-id="${recipe.id}">Get Full Recipe</button>
+          <button class="full-recipe-btn btn" data-id="${
+            recipe.id
+          }">Get Full Recipe</button>
           </div>`
       )
       .join(" ");
@@ -130,6 +140,3 @@ const searchBtn = document.getElementById(`search-btn`);
 searchBtn.addEventListener("click", () => {
   searchRecipes();
 });
-
-
-
