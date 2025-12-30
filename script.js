@@ -1,5 +1,8 @@
 async function getFullRecipe(id) {
   try {
+    // Scroll to top of page
+    window.scrollTo(0, 0);
+
     const response = await fetch(
       `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`
     );
@@ -31,14 +34,14 @@ async function getFullRecipe(id) {
 
     const saveFavoriteBtn = document.querySelector(`.save-favorite-btn`);
     saveFavoriteBtn.addEventListener("click", () => {
-      saveFavorite(data.id, data.title, data.image);
+      saveFavorite(data.id, data.title, data.image, data.servings, data.readyInMinutes);
     });
   } catch (error) {
     console.error(`Could not find recipe. Try again.`);
   }
 }
 
-function saveFavorite(id, title, image) {
+function saveFavorite(id, title, image, servings, readyInMinutes) {
   // Get existing favorites from local storage
   let favorites = localStorage.getItem("favorites");
 
@@ -61,6 +64,8 @@ function saveFavorite(id, title, image) {
     id: id,
     title: title,
     image: image,
+    servings: servings,
+    readyInMinutes: readyInMinutes
   });
 
   // Save to local storage
@@ -87,7 +92,7 @@ function showPopup(message, type = "success") {
   setTimeout(() => {
     popup.classList.remove("show");
     setTimeout(() => {
-      document.body.removeChild("popup");
+      document.body.removeChild(popup);
     }, 300);
   }, 3000);
 }
@@ -95,24 +100,36 @@ function showPopup(message, type = "success") {
 async function displayFavorites() {
   try {
     const favoriteRecipes = document.getElementById(`favorite-recipes`);
+    const errorMessage = document.querySelector(`.error-message`);
     if (!favoriteRecipes) return;
 
     let favorites = JSON.parse(localStorage.getItem("favorites"));
     console.log(favorites);
 
     if (!favorites || favorites.length === 0) {
-      const favoriteRecipes = document.getElementById(`favorite-recipes`);
-      favoriteRecipes.innerHTML = `<p>No favorites saved!</p>`;
+      errorMessage.innerHTML = `<p>No favorites saved. Click "Save to Favorites" to add a recipe!</p>`;
       return;
     }
 
     favoriteRecipes.innerHTML = favorites
       .map((recipe) => {
         return `<div class="recipe-card">
-      <img src=${recipe.image} alt="${recipe.title}">
-      <h3>${recipe.title}</h3>
-      <button class="full-recipe-btn btn" data-id="${recipe.id}">
-      Get Full Recipe</button></div>`;
+          <img src=${recipe.image} alt="${recipe.title}">
+          <h3>${recipe.title}</h3>
+          <div class="recipe-quick-info">
+          <p>Servings: ${recipe.servings}</p>
+          ${
+            recipe.readyInMinutes <= 60
+              ? `<p>Ready in: ${recipe.readyInMinutes} mins</p>`
+              : `<p>Ready in: ${Math.round(recipe.readyInMinutes / 60)} hrs ${
+                  recipe.readyInMinutes % 60
+                } mins</p>`
+          }
+          </div>
+          <button class="full-recipe-btn btn" data-id="${
+            recipe.id
+          }">Get Full Recipe</button>
+          </div>`;
       })
       .join("");
 
