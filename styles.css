@@ -269,11 +269,6 @@ h1 {
     padding-bottom: 8px;
   }
 
-  .recipe-details-header {
-    color: red;
-  }
-
-
   .recipe-details ul {
     list-style: none;
     padding-left: 0;
@@ -307,6 +302,32 @@ h1 {
 
   #save-favorite-container {
     text-align: center;
+  }
+
+  .pop-up {
+    position: fixed;
+    top: 80px;
+    right: 80px;
+    background-color: #4CAF60;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    font-weight: 500;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .pop-up.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .pop-up.error {
+    background-color: #f44336;
   }
 
    @media (max-width: 1200px) {

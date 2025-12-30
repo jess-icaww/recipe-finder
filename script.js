@@ -24,7 +24,7 @@ async function getFullRecipe(id) {
       <h3>Instructions: </h3><p>${data.instructions}</p>
       <div id="source-wrapper"><a href="${
         data.sourceUrl
-      }" target="_blank">View Original Source</div>  <div id="save-favorite-container">    <button class="save-favorite-btn btn" data-id="${
+      }" target="_blank">View Original Source</a></div>  <div id="save-favorite-container">    <button class="save-favorite-btn btn" data-id="${
       data.id
     }">
       Save to Favorites</button></div></div>`;
@@ -52,9 +52,10 @@ function saveFavorite(id, title, image) {
   // Check for duplicates
   let alreadySaved = favorites.find((recipe) => recipe.id === id);
   if (alreadySaved) {
-    console.log("Recipe already saved!");
+    showPopup("Recipe already saved!", "error");
     return;
   }
+
 
   favorites.push({
     id: id,
@@ -66,6 +67,66 @@ function saveFavorite(id, title, image) {
   localStorage.setItem("favorites", JSON.stringify(favorites));
   console.log("Recipe saved to favorites.");
   console.log(favorites);
+
+  showPopup("Recipe saved to favorites!");
+}
+
+function showPopup(message, type = "success") {
+  const popup = document.createElement("div");
+  popup.className = `pop-up ${type}`;
+  popup.textContent = message;
+
+  document.body.appendChild(popup);
+
+  // Trigger animation
+  setTimeout(() => {
+    popup.classList.add("show");
+  }, 100);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    popup.classList.remove("show");
+    setTimeout(() => {
+      document.body.removeChild("popup");
+    }, 300);
+  }, 3000);
+}
+
+async function displayFavorites() {
+  try {
+    const favoriteRecipes = document.getElementById(`favorite-recipes`);
+    if (!favoriteRecipes) return;
+
+    let favorites = JSON.parse(localStorage.getItem("favorites"));
+    console.log(favorites);
+
+    if (!favorites || favorites.length === 0) {
+      const favoriteRecipes = document.getElementById(`favorite-recipes`);
+      favoriteRecipes.innerHTML = `<p>No favorites saved!</p>`;
+      return;
+    }
+
+    favoriteRecipes.innerHTML = favorites
+      .map((recipe) => {
+        return `<div class="recipe-card">
+      <img src=${recipe.image} alt="${recipe.title}">
+      <h3>${recipe.title}</h3>
+      <button class="full-recipe-btn btn" data-id="${recipe.id}">
+      Get Full Recipe</button></div>`;
+      })
+      .join("");
+
+    // Add event listeners to ALL buttons
+    const buttons = document.querySelectorAll(`.full-recipe-btn`);
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const recipeId = button.getAttribute(`data-id`);
+        getFullRecipe(recipeId);
+      });
+    });
+  } catch (error) {
+    console.error(`Could not find any favorites. Try again.`);
+  }
 }
 
 async function searchRecipes() {
@@ -137,6 +198,13 @@ async function searchRecipes() {
 }
 
 const searchBtn = document.getElementById(`search-btn`);
-searchBtn.addEventListener("click", () => {
-  searchRecipes();
-});
+if (searchBtn) {
+  searchBtn.addEventListener("click", () => {
+    searchRecipes();
+  });
+}
+
+const favoriteRecipes = document.getElementById("favorite-recipes");
+if (favoriteRecipes) {
+  displayFavorites();
+}
