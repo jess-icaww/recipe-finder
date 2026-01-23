@@ -202,6 +202,7 @@ async function searchRecipes() {
     console.log(searchInput);
 
     let url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchInput}&addRecipeInformation=true&apiKey=${API_KEY}`;
+    console.log(url);
 
     if (dietFilter) {
       url += `&diet=${dietFilter}`;
@@ -264,4 +265,69 @@ if (searchBtn) {
 const favoriteRecipes = document.getElementById("favorite-recipes");
 if (favoriteRecipes) {
   displayFavorites();
+}
+
+function handleContactForm(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const nameError = document.getElementById("name-error");
+  const emailError = document.getElementById("email-error");
+  const messageError = document.getElementById("message-error");
+
+  let isValid = true;
+
+  // Validate name
+  if (name.length === 0 || name === "") {
+    nameError.innerHTML = "Name is required.";
+    isValid = false;
+  } else if (name.length < 3) {
+    nameError.innerHTML = "Name must be at least 3 characters.";
+    isValid = false;
+  } else {
+    nameError.innerHTML = "";
+  }
+
+  // Validate email
+  if (email.length === 0 || email === "") {
+    emailError.innerHTML = "Email is required.";
+    isValid = false;
+  } else if (!email.includes("@") || !email.includes(".com")) {
+    emailError.innerHTML = "Please enter valid email address.";
+    isValid = false;
+  } else {
+    emailError.innerHTML = "";
+  }
+
+  // Validate message
+  if (message.length === 0 || message === "") {
+    messageError.innerHTML = "Message is required.";
+    isValid = false;
+  } else if (message.length < 10) {
+    messageError.innerHTML = "Message must be at least 10 characters.";
+    isValid = false;
+  } else {
+    messageError.innerHTML = "";
+  }
+
+  if(isValid) {
+    const contactForm = document.getElementById("contact-form");
+    contactForm.reset();
+
+    showPopup("Message sent successfully!", "success");
+
+    console.log(`Form submitted!
+      Name: ${name}
+      Email: ${email}
+      Message: ${message}`);
+  }
+}
+
+
+const contactForm = document.getElementById("contact-form");
+if (contactForm) {
+  contactForm.addEventListener("submit", handleContactForm);
 }
